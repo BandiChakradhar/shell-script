@@ -62,6 +62,7 @@ then
     find $SOURCE_DIR -name "*.log" -mtime +$DAYS | zip -@ "$ZIP_FILE"
 else
     echo " no files found older than $DAYS"
+    exit 1
 fi
 
 if [ -f "$ZIP_FILE" ]
