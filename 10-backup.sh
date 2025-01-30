@@ -30,6 +30,7 @@ CHECK_ROOT(){
 
 USAGE(){
     echo -e "USAGE:: sh 10-backup.sh <source_dir> <dest_dir> <days(optional)>"
+    exit 1
 }
 
 mkdir -p /home/ec2-user/shellscript-logs
