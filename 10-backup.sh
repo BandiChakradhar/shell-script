@@ -4,7 +4,7 @@
 SOURCE_DIR=$1
 DEST_DIR=$2
 DAYS=${3:-14}
-LOGS_FOLDER="/var/log/shellscript-logs"
+LOGS_FOLDER="/home/ec2-user/shellscript-logs"
 LOG_FILE=$(echo $0 | cut -d "." -f1)
 TIMESTAMP=$(date +%y-%m-%d-%H-%M-%S)
 LOG_FILE_NAME="$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log"
@@ -40,4 +40,16 @@ then
     USAGE
 fi
 
-echo "script executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
+if [! -d $SOURDE_DIR ]
+then
+    echo -e "$SOURCE_DIR doesnot exist.please check"
+fi
+
+if [! -d $DEST_DIR ]
+then
+    echo -e "$DEST_DIR doesnot exist.please check"
+fi
+
+FILES=$(find $SOURCE_DIR -name "*.log" -mtime $DAYS)
+
+echo "files are: $FILES"
