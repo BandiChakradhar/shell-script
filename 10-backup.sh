@@ -40,16 +40,16 @@ then
     USAGE
 fi
 
-if [! -d $SOURDE_DIR ]
+if [ ! -d $SOURDE_DIR ]
 then
     echo -e "$SOURCE_DIR doesnot exist.please check"
 fi
 
-if [! -d $DEST_DIR ]
+if [ ! -d $DEST_DIR ]
 then
     echo -e "$DEST_DIR doesnot exist.please check"
 fi
 
-FILES=$(find $SOURCE_DIR -name "*.log" -mtime $DAYS)
+FILES=$(find $SOURCE_DIR -name "*.log" -mtime +$DAYS)
 
 echo "files are: $FILES"
