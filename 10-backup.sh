@@ -50,6 +50,8 @@ then
     echo -e "$DEST_DIR doesnot exist.please check"
 fi
 
+echo "script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
+
 FILES=$(find $SOURCE_DIR -name "*.log" -mtime +$DAYS)
 
 
@@ -58,6 +60,20 @@ then
     echo "files are: $FILES"
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
     find $SOURCE_DIR -name "*.log" -mtime +$DAYS | zip -@ "$ZIP_FILE"
+    if [ -f "$ZIP_FILE" ]
+    then
+        echo -e "successfully created zip file for older than $DAYS"
+        while read -r filepath
+        do
+            echo "deleting file: $filepath" &>>$LOG_FILE_NAME
+            rm -rf $FILES
+            echo "deleted file: $filepath"
+        done <<< $FILES
+    else
+        echo -e "error: failed to create zip file"
+        exit 1
+    fi
+
 
 else
     echo " no files found older than $DAYS"
